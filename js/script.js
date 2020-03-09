@@ -22,7 +22,7 @@ window.onload = function() {
     let battleScreen = false;
     let lostItem = false;
     let result = false;
-
+    document.getElementById("startGame").disabled = true;
 
   //terrain image
   var terrainImage = new Image();
@@ -439,7 +439,7 @@ var item3 = {
     // pokePick.currentTime = 0;
     // pokePick.play();
     battleScreen = true;
-
+    document.getElementById("startGame").disabled = false;
     
   }
 
@@ -598,10 +598,12 @@ var item3 = {
     else if (battleScreen) {
       ctx.fillRect(50, 50, canvas.width-100, canvas.height-100);
       ctx.fillStyle = "white";
-      ctx.fillText('YOU WIN', canvas.width / 2, canvas.height / 2);
+      ctx.fillText('Congratulation!!!', canvas.width / 2, canvas.height / 2);
+      ctx.fillText('You have enough items for your battle', canvas.width / 2, canvas.height / 2 + 20);
+      ctx.fillText('pressing Start battle to fight with the boss.', canvas.width / 2, canvas.height / 2 + 50);
       
 
-      ctx.font = "20pt Courier";
+      ctx.font = "50pt Courier";
       ctx.textAlign = "center";
     }
 

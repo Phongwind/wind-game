@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,45 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
-<body>
-    <canvas id="canvas" width="800" height="800"></canvas>
-    
 
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7 col-12">
+                <canvas id="canvas" width="800" height="800"></canvas>
+            </div>
+            <div class="col-lg-5 col-12">
+                <h1 class="text-center text-danger font-weight-bold py-3">FIGHT FOR COUNTRY</h1>
+                <div class="intro">
+                    <p>"In 1282, a young man left his villiage, joining in a army which led by Tran Quoc Toan. They prepared
+                        to the war with Yuan dynasty"</p>
+                    <li>You can help a young man to find way, going to Tran Quoc Toan's house with your arrow button</li>
+                    <li>Beware that those outlaw groups who would like to kill you and stolen everything</li>
+                    <li>You should collect enogh 3 books around area which help you beat boss</li>
+                    <li>Try to collect as fast as possible because a thieft will suddenly steal your items</li>
+                    <li>A young man will leave the villiage when he beat the boss</li>
+                    <br>
+                </div>
+                <!-- <div class="gameinfo">
+                    <li>Seconds Remaining: &nbsp <span id="remainingtime"></span></li>
+                    <li>Remaining attempts: &nbsp<span id="remainingattempt"></span></li>
+                    <li>Level: &nbsp <span id="level"></span></li>
+                    <br>
+                </div> -->
+                <div class="row">
+                    <div class="col-12" style="justify-content:center">
+                        <a href="battle.html"><button id="startGame" onclick="startgame()">Start battle</button></a>
+                        <a href="index.html"><button id="resetgame" onclick="resetgame()">Reset game</button></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+    </div>
 
 
 
@@ -21,4 +56,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="/js/script.js"></script>
 </body>
+
 </html>

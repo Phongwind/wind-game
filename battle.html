@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/battle.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7 col-12">
+                <!-- <canvas id="canvas" width="800" height="800"></canvas> -->
+                <h1 id='Title'> Battle Simulator </h1>
+
+                <div class='battlescreen'>
+                    <div id='enemy-stats'>
+                        <h2 id='enemy-name' class='name'> Bandit Lv. <span id='player-level'> 5 </span> </h2>
+                        <div class='hp-border'>
+                            <div class='hp-meter' id='enemy-hp-meter'>
+                            </div>
+                        </div>
+                        <div class='hp-counter'>
+                            <span id='enemy-hp-counter'> 218</span>/218
+                        </div>
+                    </div>
+                    <div id='enemy-stage'>
+                        <img id='enemy-picture' alt='enemy-1'>
+                    </div>
+                    <div id='player-stage'> <img id='player-picture' alt='player'> </div>
+                    <div id='player-stats'>
+                        <h2 id='player-name' class='name'> Player Lv. <span id='player-level'> 5 </span> </h2>
+                        <div class='hp-border'>
+                            <div class='hp-meter' id='player-hp-meter'>
+                            </div>
+                        </div>
+                        <div class='hp-counter'>
+                            <span id='player-hp-counter'> 196</span>/196
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id='bottom-textbox'>
+                <div id='message'>
+                </div>
+                <div class="container-fluid" id='bottom-left-textbox'>
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div id='player-move-1' class='player-moves'>
+                                Kick
+                            </div>
+
+                            <div id='player-move-2' class='player-moves'>
+                                Hit
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div id='player-move-3' class='player-moves'>
+                                Sword
+                            </div>
+
+                            <div id='player-move-4' class='player-moves'>
+                                ---
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-12 text">
+            <h1 class="text-center text-danger font-weight-bold py-3">FIGHT FOR COUNTRY</h1>
+            <div class="intro">
+                <p>"In 1282, a young man left his villiage, joining in a army which led by Tran Quoc Toan. They prepared
+                    to the war with Yuan dynasty"</p>
+                <li>You can help a young man to find way, going to Tran Quoc Toan's house with your arrow button</li>
+                <li>Beware that those outlaw groups who would like to kill you and stolen everything</li>
+                <li>You should collect enogh 3 books around area which help you beat boss</li>
+                <li>Try to collect as fast as possible because a thieft will suddenly steal your items</li>
+                <li>A young man will leave the villiage when he beat the boss</li>
+                <br>
+            </div>
+            <!-- <div class="gameinfo">
+                    <li>Seconds Remaining: &nbsp <span id="remainingtime"></span></li>
+                    <li>Remaining attempts: &nbsp<span id="remainingattempt"></span></li>
+                    <li>Level: &nbsp <span id="level"></span></li>
+                    <br>
+                </div> -->
+            <div class="row">
+                <div class="col-12" style="justify-content:center">
+                    <a href="battle.html"><button id="startgame" onclick="startgame()">Start battle</button></a>
+                    <a href="index.html"><button id="resetgame" onclick="resetgame()">Reset game</button></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/js/battle.js"></script>
+</body>
+
+</html>
