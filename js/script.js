@@ -498,17 +498,17 @@ var item3 = {
   );
 
     //enemy2
-    ctx.drawImage(
-      enemy2Image,
-      enemy2.spritePosition * enemy2.spriteItemDistance,
-      0,
-      objectSizes,
-      objectSizes,
-      enemy2.x * objectSizes,
-      enemy2.y * objectSizes,
-      objectSizes,
-      objectSizes
-    );
+    // ctx.drawImage(
+    //   enemy2Image,
+    //   enemy2.spritePosition * enemy2.spriteItemDistance,
+    //   0,
+    //   objectSizes,
+    //   objectSizes,
+    //   enemy2.x * objectSizes,
+    //   enemy2.y * objectSizes,
+    //   objectSizes,
+    //   objectSizes
+    // );
 
     //item1
     ctx.drawImage(
