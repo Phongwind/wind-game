@@ -62,6 +62,10 @@ window.onload = function() {
   var thieftPick = new Audio("/sound/violindanger.wav");
   thieftPick.volume = 0.8;
 
+  //thieft-selection
+  var winPick = new Audio("/sound/elctro-win-sound.wav");
+  winPick.volume = 0.8;
+
   //player image
   var playerImage = new Image();
   playerImage.onload = function() {
@@ -419,7 +423,7 @@ var item3 = {
     item3.y = item3.y + 70;
   }
 
-  if (player.x == enemy1.x && player.y == enemy1.y && score < 3 ) {
+  if (player.x == enemy1.x && player.y == enemy1.y && score < 3 && item1.x > 20 && item1.y > 20 && item2.x > 20 && item2.y > 20 && item3.x > 20 && item3.y > 20 ) {
     // found a enemy1 !! create a new one
     thieftPick.pause();
       thieftPick.currentTime = 0;
@@ -430,11 +434,11 @@ var item3 = {
     // pokePick.play();
     result = true;
     
-  } else if (player.x == enemy1.x && player.y == enemy1.y && score == 3) {
+  } else if (player.x == enemy1.x && player.y == enemy1.y && item1.x > 20 && item1.y > 20 && item2.x > 20 && item2.y > 20 && item3.x > 20 && item3.y > 20) {
     // found a enemy1 !! create a new one
-    thieftPick.pause();
-      thieftPick.currentTime = 0;
-      thieftPick.play();
+    winPick.pause();
+      winPick.currentTime = 0;
+      winPick.play();
     console.log('find enemy ');
     // pokePick.pause();
     // pokePick.currentTime = 0;
