@@ -63,7 +63,7 @@ window.onload = function() {
   thieftPick.volume = 0.8;
 
   //thieft-selection
-  var winPick = new Audio("/sound/elctro-win-sound.wav");
+  var winPick = new Audio("/sound/electro-win-sound.wav");
   winPick.volume = 0.8;
 
   //player image
