@@ -66,6 +66,10 @@ window.onload = function() {
   var winPick = new Audio("/sound/electro-win-sound.wav");
   winPick.volume = 0.8;
 
+  //die-selection
+  var diePick = new Audio("/sound/game-die.mp3");
+  diePick.volume = 0.8;
+
   //player image
   var playerImage = new Image();
   playerImage.onload = function() {
@@ -425,9 +429,9 @@ var item3 = {
 
   if (player.x == enemy1.x && player.y == enemy1.y && score < 3) {
     // found a enemy1 !! create a new one
-    thieftPick.pause();
-      thieftPick.currentTime = 0;
-      thieftPick.play();
+    diePick.pause();
+      diePick.currentTime = 0;
+      diePick.play();
     console.log('find enemy ');
     player.x = 6;
     player.y = 11;
