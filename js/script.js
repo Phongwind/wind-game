@@ -3,7 +3,7 @@
  * @version 1.0.0
  * @author Panagiotis Vourtsis <vourtsis_pan@hotmail.com>
  */
-window.onload = function() {
+window.onload = function () {
   'use strict';
 
   var canvas = document.getElementById('canvas');
@@ -15,18 +15,74 @@ window.onload = function() {
     enemy2ImageLoaded = false,
     gateImageLoaded = false,
     playerImageLoaded = false;
-    var objectSizes = 66;
-    var speed = 100;
-    var modifier = 100;
-    var score = 0;
-    let battleScreen = false;
-    let lostItem = false;
-    let result = false;
-    document.getElementById("startGame").disabled = true;
+  var objectSizes = 66;
+  var speed = 100;
+  var modifier = 100;
+  var score = 0;
+  let battleScreen = false;
+  let lostItem = false;
+  let result = false;
+  document.getElementById("startGame").disabled = true;
+
+  //add feature
+  let win = false;
+
+  let record = [];
+
+  let timeStart = 0;
+  let time = timeStart; // time start from 0
+  let myTime; // timer will be assign to this variable
+  function timeCounting() {
+    myTime = setInterval(() => {
+      time += 1;
+      document.getElementById('timeCount').innerHTML = time;
+    }, 1000);    // every 1 second, it will add 1 into time variable (computer use millisecond so 1000 is 1 second)
+  }
+
+  timeCounting();
+
+  function timeOut() {
+    clearInterval(myTime);
+  }
+
+  let recordArea = document.getElementById("recordArea");
+  function recording() {
+    entry = {
+      time: time,
+    };
+    record.push(entry);
+  }
+
+  function showRecord() {
+    let para = document.createElement("div");
+    para.innerHTML = "<str>Game " + gameNumber + "</str><br>" +
+      "Time: " + record[gameNumber - 1]["time"] + "<br>" +
+      document.getElementById("recordArea").appendChild(para);
+    gameNumber++;
+  }
+
+  recordButton.addEventListener("click", unhideRecord);
+
+  function unhideRecord() {
+    let x = document.getElementById("recordArea");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function recordinfo() {
+    recording()
+    showRecord();
+  }
+
+
+
 
   //terrain image
   var terrainImage = new Image();
-  terrainImage.onload = function() {
+  terrainImage.onload = function () {
     terrainImageLoaded = true;
     assetsLoaded();
   };
@@ -34,7 +90,7 @@ window.onload = function() {
 
   //house image
   var houseImage = new Image();
-  houseImage.onload = function() {
+  houseImage.onload = function () {
     houseImageLoaded = true;
     assetsLoaded();
   };
@@ -42,7 +98,7 @@ window.onload = function() {
 
   //gate image
   var gateImage = new Image();
-  gateImage.onload = function() {
+  gateImage.onload = function () {
     gateImageLoaded = true;
     assetsLoaded();
   };
@@ -72,51 +128,51 @@ window.onload = function() {
 
   //player image
   var playerImage = new Image();
-  playerImage.onload = function() {
+  playerImage.onload = function () {
     enemy2ImageLoaded = true;
     assetsLoaded();
   };
   playerImage.src = "/img/hero.png";
 
-      //enemy1 image
-      var enemy1Image = new Image();
-      enemy1Image.onload = function() {
-        playerImageLoaded = true;
-        assetsLoaded();
-      };
-      enemy1Image.src = "/img/enemy-1.png";
+  //enemy1 image
+  var enemy1Image = new Image();
+  enemy1Image.onload = function () {
+    playerImageLoaded = true;
+    assetsLoaded();
+  };
+  enemy1Image.src = "/img/enemy-1.png";
 
   //enemy2 image
   var enemy2Image = new Image();
-  enemy2Image.onload = function() {
+  enemy2Image.onload = function () {
     playerImageLoaded = true;
     assetsLoaded();
   };
   enemy2Image.src = "/img/enemy-2.png";
 
-    //item1 image
-    var item1Image = new Image();
-    item1Image.onload = function() {
-      playerImageLoaded = true;
-      assetsLoaded();
-    };
-    item1Image.src = "/img/item-1.png";
+  //item1 image
+  var item1Image = new Image();
+  item1Image.onload = function () {
+    playerImageLoaded = true;
+    assetsLoaded();
+  };
+  item1Image.src = "/img/item-1.png";
 
-    //item2 image
-    var item2Image = new Image();
-    item2Image.onload = function() {
-      playerImageLoaded = true;
-      assetsLoaded();
-    };
-    item2Image.src = "/img/item-2.png";
+  //item2 image
+  var item2Image = new Image();
+  item2Image.onload = function () {
+    playerImageLoaded = true;
+    assetsLoaded();
+  };
+  item2Image.src = "/img/item-2.png";
 
-    //item3 image
-    var item3Image = new Image();
-    item3Image.onload = function() {
-      playerImageLoaded = true;
-      assetsLoaded();
-    };
-    item3Image.src = "/img/item-3.png";
+  //item3 image
+  var item3Image = new Image();
+  item3Image.onload = function () {
+    playerImageLoaded = true;
+    assetsLoaded();
+  };
+  item3Image.src = "/img/item-3.png";
 
 
   /**
@@ -132,7 +188,7 @@ window.onload = function() {
     spritePosition: 0,
     spriteItemDistance: 40,
   };
-  enemy2.generatePosition = function() {
+  enemy2.generatePosition = function () {
     do {
       enemy2.x = Math.floor(Math.random() * 12) + 1;
       enemy2.y = Math.floor(Math.random() * 6) + 4;
@@ -144,32 +200,32 @@ window.onload = function() {
   var enemy1 = {
     x: 5,
     y: 11,
-//   spritePosition: 0,
-//   spriteItemDistance: 40,
-// };
-// enemy1.generatePosition = function() {
-//   do {
-//     enemy1.x = Math.floor(Math.random() * 12) + 1;
-//     enemy1.y = Math.floor(Math.random() * 6) + 4;
-//   } while (check_collision(enemy1.x, enemy1.y));
+    //   spritePosition: 0,
+    //   spriteItemDistance: 40,
+    // };
+    // enemy1.generatePosition = function() {
+    //   do {
+    //     enemy1.x = Math.floor(Math.random() * 12) + 1;
+    //     enemy1.y = Math.floor(Math.random() * 6) + 4;
+    //   } while (check_collision(enemy1.x, enemy1.y));
 
-  // enemy1.spritePosition = Math.floor(Math.random() * 4) + 0; // get position from 0-4
-};
+    // enemy1.spritePosition = Math.floor(Math.random() * 4) + 0; // get position from 0-4
+  };
 
   var item1 = {
     x: 4,
     y: 0,
-}
+  }
 
-var item2 = {
+  var item2 = {
     x: 0,
     y: 6,
-}
+  }
 
-var item3 = {
+  var item3 = {
     x: 10,
     y: 10,
-}
+  }
 
   /**
    * Holds all the player's info like x and y axis position, his current direction (facing).
@@ -179,8 +235,8 @@ var item3 = {
    * @name enemy2
    */
   var player = {
-    x: Math.round((w / objectSizes) - 3 ),
-    y: Math.round((w / objectSizes) - 9 ),
+    x: Math.round((w / objectSizes) - 3),
+    y: Math.round((w / objectSizes) - 9),
     currentDirection: 'stand',
     direction: {
       stand: {
@@ -222,7 +278,7 @@ var item3 = {
       },
     },
   };
-  player.move = function(direction) {
+  player.move = function (direction) {
     /**
      * A temporary object to hold the current x, y so if there is a collision with the new coordinates to fallback here
      */
@@ -305,23 +361,23 @@ var item3 = {
       thieftPick.currentTime = 0;
       thieftPick.play();
       alert("A theft take your item!Please collecte again!");
-      item1.x = item1.x -50;
+      item1.x = item1.x - 50;
       item1.y = item1.y - 70;
-      item2.x = item2.x -50;
+      item2.x = item2.x - 50;
       item2.y = item2.y - 70;
       item3.x = item3.x - 50;
       item3.y = item3.y - 70;
       enemy2.generatePosition();
     }
-    
-    
-    
-     if (player.x == enemy2.x && player.y == enemy2.y && item1.x > 20 && item1.y > 20 && item2.x > 20 && item2.y > 20) {
+
+
+
+    if (player.x == enemy2.x && player.y == enemy2.y && item1.x > 20 && item1.y > 20 && item2.x > 20 && item2.y > 20) {
       thieftPick.pause();
       thieftPick.currentTime = 0;
       thieftPick.play();
       alert("A theft take your item!Please collecte again!");
-      item1.x = item1.x -50;
+      item1.x = item1.x - 50;
       item1.y = item1.y - 70;
       item2.x = item2.x - 50;
       item2.y = item2.y - 70;
@@ -333,7 +389,7 @@ var item3 = {
       thieftPick.currentTime = 0;
       thieftPick.play();
       alert("A theft take your item!Please collecte again!");
-      item1.x = item1.x -50;
+      item1.x = item1.x - 50;
       item1.y = item1.y - 70;
       item3.x = item3.x - 50;
       item3.y = item3.y - 70;
@@ -345,7 +401,7 @@ var item3 = {
       thieftPick.currentTime = 0;
       thieftPick.play();
       alert("A theft take your item!Please collecte again!");
-      item2.x = item2.x -50;
+      item2.x = item2.x - 50;
       item2.y = item2.y - 70;
       item3.x = item3.x - 50;
       item3.y = item3.y - 70;
@@ -353,22 +409,22 @@ var item3 = {
     }
 
 
-   
-     if (player.x == enemy2.x && player.y == enemy2.y && item1.x > 20 && item1.y > 20) {
+
+    if (player.x == enemy2.x && player.y == enemy2.y && item1.x > 20 && item1.y > 20) {
       // found a enemy2 !! create a new one
       console.log('found a enemy2 of ' + enemy2.spritePosition + '! Bravo! ');
       thieftPick.pause();
       thieftPick.currentTime = 0;
       thieftPick.play();
       alert("A theft take your item!Please collecte again!");
-      item1.x = item1.x -50;
+      item1.x = item1.x - 50;
       item1.y = item1.y - 70;
       // item3.x = item3.x - 50;
       // item3.y = item3.y - 70;
       enemy2.generatePosition();
-      
-    } 
-    
+
+    }
+
     if (player.x == enemy2.x && player.y == enemy2.y && item2.x > 20 && item2.y > 20) {
       thieftPick.pause();
       thieftPick.currentTime = 0;
@@ -383,7 +439,7 @@ var item3 = {
       thieftPick.pause();
       thieftPick.currentTime = 0;
       thieftPick.play();
-      
+
       alert("Unfortunately, a theft take your item!Please collecte again!");
       item3.x = item3.x - 50;
       item3.y = item3.y - 70;
@@ -394,114 +450,110 @@ var item3 = {
       thieftPick.pause();
       thieftPick.currentTime = 0;
       thieftPick.play();
-      
+
       alert("Unfortunately, you meet a thieft!");
       enemy2.generatePosition();
     }
 
-    
+
 
     if (player.x == item1.x && player.y == item1.y) {
-      console.log ('Find a item');
+      console.log('Find a item');
       pokePick.pause();
       pokePick.currentTime = 0;
       pokePick.play();
-      score +=1;
+      score += 1;
       item1.x = item1.x + 50;
       item1.y = item1.y + 70;
-  } else if (player.x == item2.x && player.y == item2.y) {
-    console.log ('Find a item');
-    pokePick.pause();
+    } else if (player.x == item2.x && player.y == item2.y) {
+      console.log('Find a item');
+      pokePick.pause();
       pokePick.currentTime = 0;
       pokePick.play();
-    score +=1;
-    item2.x = item2.x + 50;
-    item2.y = item2.y + 70;
-  } else if (player.x == item3.x && player.y == item3.y) {
-    console.log ('Find a item');
-    pokePick.pause();
+      score += 1;
+      item2.x = item2.x + 50;
+      item2.y = item2.y + 70;
+    } else if (player.x == item3.x && player.y == item3.y) {
+      console.log('Find a item');
+      pokePick.pause();
       pokePick.currentTime = 0;
       pokePick.play();
-    score +=1;
-    item3.x = item3.x + 50;
-    item3.y = item3.y + 70;
-  }
+      score += 1;
+      item3.x = item3.x + 50;
+      item3.y = item3.y + 70;
+    }
 
-  if (player.x == enemy1.x && player.y == enemy1.y && item1.x > 20 && item1.y > 20 && item2.x > 20 && item2.y > 20 && item3.x > 20 && item3.y > 20) {
-    // found a enemy1 !! create a new one
-    winPick.pause();
+    if (player.x == enemy1.x && player.y == enemy1.y && item1.x > 20 && item1.y > 20 && item2.x > 20 && item2.y > 20 && item3.x > 20 && item3.y > 20) {
+      // found a enemy1 !! create a new one
+      winPick.pause();
       winPick.currentTime = 0;
       winPick.play();
-    console.log('find enemy ');
-    player.x = 6;
-    player.y = 11;
-    // pokePick.pause();
-    // pokePick.currentTime = 0;
-    // pokePick.play();
-    battleScreen = true;
-    document.getElementById("startGame").disabled = false;
-    
-  }
+      console.log('find enemy ');
+      player.x = 6;
+      player.y = 11;
+      document.getElementById("startGame").disabled = false;
+      timeOut();
+      // recording();
+      // showRecord()
+      battleScreen = true;
+    }
 
-  if (player.x == enemy1.x && player.y == enemy1.y && score > 3 && item1.x > 20 && item1.y > 20 ) {
-    // found a enemy1 !! create a new one
-    diePick.pause();
+    if (player.x == enemy1.x && player.y == enemy1.y && score > 3 && item1.x > 20 && item1.y > 20) {
+      // found a enemy1 !! create a new one
+      diePick.pause();
       diePick.currentTime = 0;
       diePick.play();
-    console.log('find enemy ');
-    player.x = 6;
-    player.y = 11;
-    // pokePick.pause();
-    // pokePick.currentTime = 0;
-    // pokePick.play();
-    result = true;
-  }
+      console.log('find enemy ');
+      player.x = 6;
+      player.y = 11;
+      result = true;
+      timeOut();
+      // recording();
+      // showRecord()
+    }
 
-  if (player.x == enemy1.x && player.y == enemy1.y && score > 3 && item2.x > 20 && item2.y > 20 ) {
-    // found a enemy1 !! create a new one
-    diePick.pause();
+    if (player.x == enemy1.x && player.y == enemy1.y && score > 3 && item2.x > 20 && item2.y > 20) {
+      // found a enemy1 !! create a new one
+      diePick.pause();
       diePick.currentTime = 0;
       diePick.play();
-    console.log('find enemy ');
-    player.x = 6;
-    player.y = 11;
-    // pokePick.pause();
-    // pokePick.currentTime = 0;
-    // pokePick.play();
-    result = true;
-  }
+      console.log('find enemy ');
+      player.x = 6;
+      player.y = 11;
+      result = true;
+      timeOut();
+      // recording();
+      // showRecord()
+    }
 
-  if (player.x == enemy1.x && player.y == enemy1.y && score > 3 && item3.x > 20 && item3.y > 20 ) {
-    // found a enemy1 !! create a new one
-    diePick.pause();
+    if (player.x == enemy1.x && player.y == enemy1.y && score > 3 && item3.x > 20 && item3.y > 20) {
+      // found a enemy1 !! create a new one
+      diePick.pause();
       diePick.currentTime = 0;
       diePick.play();
-    console.log('find enemy ');
-    player.x = 6;
-    player.y = 11;
-    // pokePick.pause();
-    // pokePick.currentTime = 0;
-    // pokePick.play();
-    result = true;
-  }
-  
-  if (player.x == enemy1.x && player.y == enemy1.y && score < 3) {
-    // found a enemy1 !! create a new one
-    diePick.pause();
+      console.log('find enemy ');
+      player.x = 6;
+      player.y = 11;
+      result = true;
+      timeOut();
+      // recording();
+      // showRecord()
+    }
+
+    if (player.x == enemy1.x && player.y == enemy1.y && score < 3) {
+      // found a enemy1 !! create a new one
+      diePick.pause();
       diePick.currentTime = 0;
       diePick.play();
-    console.log('find enemy ');
-    player.x = 6;
-    player.y = 11;
-    // pokePick.pause();
-    // pokePick.currentTime = 0;
-    // pokePick.play();
-    result = true;
+      console.log('find enemy ');
+      player.x = 6;
+      player.y = 11;
+      result = true;
+      timeOut();
+      // recording();
+      // showRecord()
 
-    
-    
-    
-  }
+    }
 
     update();
   };
@@ -518,14 +570,14 @@ var item3 = {
     // //Genboard
     // board();
 
-   //enemy1
-   ctx.drawImage(
-    enemy1Image,
-    enemy1.x * objectSizes,
-    enemy1.y * objectSizes,
-    objectSizes,
-    objectSizes
-  );
+    //enemy1
+    ctx.drawImage(
+      enemy1Image,
+      enemy1.x * objectSizes,
+      enemy1.y * objectSizes,
+      objectSizes,
+      objectSizes
+    );
 
     // //enemy2
     // ctx.drawImage(
@@ -586,7 +638,7 @@ var item3 = {
     ctx.drawImage(gateImage, 190, 125);
 
     if (result) {
-      ctx.fillRect(50, 50, canvas.width-100, canvas.height-100);
+      ctx.fillRect(50, 50, canvas.width - 100, canvas.height - 100);
       ctx.fillStyle = "white";
       ctx.fillText('YOU DIE!!!', canvas.width / 2, canvas.height / 2);
       ctx.fillText('Hit reset button to try again', canvas.width / 2, canvas.height / 2 + 50);
@@ -596,21 +648,21 @@ var item3 = {
     }
 
     else if (battleScreen) {
-      ctx.fillRect(50, 50, canvas.width-100, canvas.height-100);
+      ctx.fillRect(50, 50, canvas.width - 100, canvas.height - 100);
       ctx.fillStyle = "white";
       ctx.fillText('Congratulation!!!', canvas.width / 2, canvas.height / 2);
       ctx.fillText('You have enough items for your battle', canvas.width / 2, canvas.height / 2 + 20);
       ctx.fillText('pressing Start battle to fight with the boss.', canvas.width / 2, canvas.height / 2 + 50);
-      
+
 
       ctx.font = "50pt Courier";
       ctx.textAlign = "center";
     }
 
-    
+
   }
 
-  
+
   function check_collision(x, y) {
     var foundCollision = false;
 
@@ -631,10 +683,10 @@ var item3 = {
       (x == 9 && y == 8) ||
       (y >= 0 && y < 2 && (x == 6 || x == 7)) ||
       (x == 5 && y == 0) ||
-      (x < 4 && y == 0 ) ||
+      (x < 4 && y == 0) ||
       (x < 4 && (y == 4 || y == 5)) ||
-      (y > 8 && x == 0 ) ||
-      (x < 3 && (y == 11 || y == 10 )) ||
+      (y > 8 && x == 0) ||
+      (x < 3 && (y == 11 || y == 10)) ||
       (x == 7 && y == 11) ||
       (x == 4 && y == 10) ||
       (x < 2 && y <= 2) ||
@@ -650,7 +702,7 @@ var item3 = {
     return foundCollision;
   }
 
- 
+
   // function board() {
   //   ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
   //   ctx.fillRect(w - 100, h - 70, 100, 70);
@@ -663,12 +715,12 @@ var item3 = {
   //   ctx.fillStyle = 'rgba(255, 255, 255, 1)';
   //   ctx.fillText(score + ' poketballs', w - 85, h - 25);
 
-  
+
   // }
 
 
   function assetsLoaded() {
-    if  (
+    if (
       terrainImageLoaded == true &&
       houseImageLoaded == true &&
       enemy2ImageLoaded == true &&
@@ -678,16 +730,16 @@ var item3 = {
       enemy2.generatePosition();
       update();
     }
-    
-  
 
-    
+
+
+
   }
 
   /**
    * Assign of the arrow keys to call the player move
    */
-  document.onkeydown = function(e) {
+  document.onkeydown = function (e) {
     e = e || window.event;
 
     if (e.keyCode == '37') player.move('left');
@@ -696,3 +748,5 @@ var item3 = {
     else if (e.keyCode == '40') player.move('down');
   };
 };
+
+
